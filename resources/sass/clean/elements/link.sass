@@ -1,0 +1,27 @@
+a
+    color: $link
+    cursor: pointer
+    text-decoration: underline
+    background-color: transparent
+
+    &:hover
+        color: $gray-80
+        outline-width: 0
+
+    &:active
+        outline-width: 0
+
+    &:focus
+        outline-width: 2px
+
+    &.no-underline
+        // needed
+        text-decoration: none !important
+
+    &.nav-link.active
+        font-weight: 700
+        background-color: $gray-20
+
+
+.pointer
+    cursor: pointer

@@ -1,0 +1,40 @@
+/* HEADER */
+header.page-header
+    width: 100%
+    background-color: white
+    box-shadow: 0 0.25rem 0.5rem rgb(0 0 0 / 8%)
+    padding: 10px 6px
+
+
+    .header-content
+        width: 95%
+        margin: 0 auto
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        justify-content: flex-start
+        align-items: center
+        gap: 0.5em
+
+        a.button
+            margin-top: 0
+
+            &.primary.alt
+                color: white
+                &:hover, &:focus
+                    color: $primary-dark
+
+        .dropdown-item
+            display: block
+            margin-bottom: 0.5em
+
+        nav
+            a:not(.dropdown-item)
+                margin: 0 1em
+                //padding: 0 0.5em
+                text-decoration: underline
+
+            .dropdown-item
+                display: block
+                margin-bottom: 0.5em
+/* HEADER END */
