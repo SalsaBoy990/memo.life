@@ -8,7 +8,7 @@ export function animateData() {
         target: '',
 
         animate(animationName) {
-            this.target = animationName || 'normal';
+          this.target = animationName || 'normal';
         },
     };
 }

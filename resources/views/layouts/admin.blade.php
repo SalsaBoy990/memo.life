@@ -10,10 +10,12 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/main.sass', 'resources/spa/app.js'])
+    <link href="{{ url('css/prism.css') }}" rel="stylesheet">
 </head>
 <body style="overflow-x: hidden">
 
 @yield('content')
 
+<script src="{{ url('/js/prism.js') }}" type="text/javascript"></script>
 </body>
 </html>

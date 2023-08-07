@@ -2,9 +2,9 @@
   <div>
     <button @click="openModal" class="black-button padding-1">Click to Open Modal</button>
 
-    <div v-show="modal === true" class="clean-modal" :class="{'show': modal}">
+    <div v-show="modal === true" class="modal" :class="{'show': modal}">
 
-      <div class="clean-modal-content content-600 card card-4 animate-top relative">
+      <div class="modal-content content-600 card card-4 animate-top relative">
 
         <div class="box primary round-top">
           <button @click="closeModal"

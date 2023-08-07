@@ -142,9 +142,6 @@ $s-800: 800px
     flex-direction: column
     row-gap: 1em
 
-    @media screen and (max-width: $s-600)
-        flex-direction: column-reverse
-
     .event-list-grid
         display: grid
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
@@ -168,6 +165,7 @@ $s-800: 800px
 
         a
             color: inherit
+
             &:hover, &:focus
                 color: inherit
 
@@ -177,7 +175,7 @@ $s-800: 800px
 
 .event-list-widget
     .reset-filters-button
-        margin-top: 3.3em
+        margin-top: 3.7em
 
         @media screen and (max-width: $s-600)
             margin-top: 0.5em

@@ -19,7 +19,7 @@ export function ajaxSearchData() {
     };
 
     // https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
-    const stripTagsRegex = new RegExp('(<([^>]+)>)', 'ig');
+    const stripTagsRegex =  new RegExp('(<([^>]+)>)', 'ig');
 
     return {
         searchTerm: '',

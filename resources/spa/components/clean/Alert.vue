@@ -1,12 +1,12 @@
 <template>
-    <div v-if="openAlert === true"
-         class="panel relative" :class="[color !== '' ? panelClasses : '']">
-        <button v-if="showCloseButton === true" @click="hideAlert()" class="close-button fs-18 white-transparent topright">
+    <div v-if="openAlert === true" role="alert"
+         class="alert relative" :class="[color !== '' ? alertClass : '']">
+        <button v-if="showCloseButton === true" @click="hideAlert()" class="close-button topright">
             <font-awesome-icon :icon="['fas', 'times']"/>
         </button>
 
-        <div class="h5 bold">{{ heading }}</div>
-        <p class="margin-0">
+        <div class="h5 bold text-black"><font-awesome-icon :icon="icon" class="margin-right-0-5" />{{ heading }}</div>
+        <p class="alert-message">
             <slot></slot>
         </p>
 
@@ -25,14 +25,9 @@ export default {
     data() {
         return {
             openAlert: true,
-            panelStyles: [],
         }
     },
     mounted() {
-        this.panelStyles['danger'] = 'danger text-red-dark border border-red-dark';
-        this.panelStyles['warning'] = 'danger text-red-dark border border-red-dark';
-        this.panelStyles['success'] = 'danger text-red-dark border border-red-dark';
-        this.panelStyles['info'] = 'danger text-red-dark border border-red-dark';
         this.openAlert = true;
     },
     methods: {
@@ -46,18 +41,32 @@ export default {
     },
 
     computed: {
-        panelClasses() {
+        alertClass() {
             switch (this.$props.color) {
                 case 'danger':
-                    return 'danger text-red-dark border border-red-dark';
+                    return 'danger';
                 case 'warning':
-                    return 'warning text-orange-dark border border-orange-dark';
+                    return 'warning';
                 case 'success':
-                    return 'success text-green-dark border border-green-dark';
+                    return 'success';
                 case 'info':
-                    return 'info text-cyan-dark border border-cyan-dark';
+                    return 'info';
                 default:
-                    return 'info text-cyan-dark border border-cyan-dark';
+                    return 'info';
+            }
+        },
+        icon() {
+            switch (this.$props.color) {
+                case 'danger':
+                    return 'fa-solid fa-circle-exclamation margin-right-0-5';
+                case 'warning':
+                    return 'fa-solid fa-triangle-exclamation margin-right-0-5';
+                case 'success':
+                    return 'fa-solid fa-circle-check margin-right-0-5';
+                case 'info':
+                    return 'fa-solid fa-circle-info margin-right-0-5';
+                default:
+                    return 'fa-solid fa-circle-info margin-right-0-5';
             }
         }
     }

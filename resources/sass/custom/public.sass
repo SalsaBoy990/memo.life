@@ -9,8 +9,6 @@
     &.wrapper
         border-top: 2px solid #D8D8D8
 
-    &.frontpage
-        background-image: url('./../../public/images/kizomba-hatter-min.jpg')
 
     .highlighted-posts-container
         display: flex
@@ -111,7 +109,7 @@
         h1
             padding-bottom: 0.25em
             @media screen and (max-width: 576px)
-                font-size: 2em
+                font-size: 1.7em
 
         .post-content
             padding-bottom: 2em
@@ -131,22 +129,32 @@
             h5, .h5, h6, .h6
                 font-size: 1.0em
 
+            p, ul, ol
+                margin-top: 1.25em
+                margin-bottom: 1.25em
+
+
             p, ul li, ol li
-                color: #333
-                font-size: 18px
-                line-height: 1.7
+                font-size: 20px
+                line-height: 1.6
 
                 @media screen and (max-width: $s-600)
                     font-size: 1em
+
+            blockquote
+                p
+                    font-size: 24px
+                    color: $gray-60
 
     & > .container
         flex-grow: 1
 
     .public-content
-        margin: 0 auto 2em
+        margin: 2em auto
+        margin-top: 0
 
         @media screen and (max-width: $s-600)
-            margin-top: 0
+            margin-top: 0.5em
 
         @media screen and (max-width: $s-1023)
             grid-template-columns: 1fr

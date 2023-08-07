@@ -5,25 +5,29 @@
 // ----
 
 $border: #c5c5c5
-$bg-light: #F4F4F5
+$bg-light: #f7f8f8
 $gray-60: #6C6C6C
 $gray-80: #303134
-$text: #333
+$text: #4c5865
 $black: #222
 $primary-dark: #164E63
 $primary-light: #0891B2
 $bg-primary: #164E63
 
 
-$accent-light: #E6873B
-$accent-dark: #CD4800
+//$accent-light: #E6873B
+$accent-light: #e37639
+//$accent-dark: #CD4800
+$accent-dark: #e6873b
 $link: $accent-light
 
 // Dark mode
 $bg-dark: #1f292f
-$bg-content: #364e57
-$primary-darkmode: #FBBF24
-$primary-darkmode-hover: #fadca5
+$bg-content: #444b50
+$primary-darkmode: #ffceac
+$primary-darkmode-hover: #ffebde
+
+$sidenav: #fffbf3
 
 
 $pale-dark: $accent-dark
@@ -74,6 +78,6 @@ h1, h2, h3, h4, h5, h6
 
 
 @mixin primary-gradient
-    background: rgb(115,14,31)
-    background: linear-gradient(0deg, rgba(115,14,31,1) 0%, rgba(171,6,34,1) 80%)
+    background: $bg-primary
+    background: linear-gradient(0deg, $primary-light 0%, $primary-dark 80%)
 
