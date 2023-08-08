@@ -67,7 +67,7 @@
                     </a>
                 @else
                     <a href="{{ route('login') }}"
-                       class="button primary margin-top-0 padding-left-right-0-5 padding-top-bottom-1">{{ __('Log in') }}</a>
+                       class="button primary margin-top-0">{{ __('Log in') }}</a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="button primary alt margin-top-0">{{ __('Register') }}</a>
