@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // Authenticated API routes
-Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum']],
+Route::group(['prefix' => 'v1', 'middleware' => ['auth:sanctum', '2fa']],
     function () {
 
         Route::post('logout', [LoginController::class, 'logout'])->name('user.logout');

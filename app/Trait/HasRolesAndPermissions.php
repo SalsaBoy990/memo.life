@@ -50,17 +50,16 @@ trait HasRolesAndPermissions
     /**
      * Check if user has one of the roles from the array
      *
-     * @param  string  $roles
+     * @param  string  $roles  format: 'super-admin|admin'
      *
      * @return bool
      */
     public function hasRoles(string $roles): bool
     {
-
+        $rolesArray = [];
         // multiple roles from middleware arguments
         if (str_contains($roles, '|')) {
             $rolesTemp = explode('|', $roles);
-            $rolesArray = [];
 
             foreach ($rolesTemp as $role) {
                 $rolesArray[] = $role;
@@ -68,7 +67,6 @@ trait HasRolesAndPermissions
         } else {
             // only one role supplied through middleware
             $roleSlug = $roles;
-            $rolesArray = [];
             $rolesArray[] = $roleSlug;
         }
 
@@ -87,17 +85,13 @@ trait HasRolesAndPermissions
     /**
      * Checks if the user have the permission
      *
-     * @param  Permission|null  $permission
      * @param  string  $permissionName
      *
      * @return bool
      */
-    public function hasPermissionTo(?Permission $permission, string $permissionName = ''): bool
+    public function hasPermissionTo(string $permissionName = ''): bool
     {
-
-        if (!$permission instanceof Permission) {
-            $permission = $this->getPermissionBySlug($permissionName);
-        }
+        $permission = $this->getPermissionBySlug($permissionName);
 
         if ($permission === null) {
             return false;
@@ -114,7 +108,7 @@ trait HasRolesAndPermissions
      *
      * @return bool
      */
-    protected function hasPermission(Permission $permission): bool
+    public function hasPermission(Permission $permission): bool
     {
         return (bool) $this->permissions->where('slug', $permission->slug)->count();
     }
@@ -129,7 +123,7 @@ trait HasRolesAndPermissions
      */
     protected function getPermissionBySlug(string $slug): ?Permission
     {
-        return Permission::where('slug', $slug)->first();
+        return Permission::where('slug', $slug)->firstOrFail();
     }
 
 
@@ -142,7 +136,7 @@ trait HasRolesAndPermissions
      */
     protected function getRoleBySlug(string $slug): ?Role
     {
-        return Role::where('slug', $slug)->first();
+        return Role::where('slug', $slug)->firstOrFail();
     }
 
     /**
@@ -165,7 +159,6 @@ trait HasRolesAndPermissions
      */
     public function hasPermissionThroughRole(Permission $permission): bool
     {
-
         foreach ($permission->roles as $role) {
             if ($this->role->id === $role->id) {
                 return true;
@@ -229,6 +222,7 @@ trait HasRolesAndPermissions
 
 
     /**
+     * TODO
      * Delete all permissions of the user
      *
      * @param  mixed  ...$permissions
@@ -244,6 +238,7 @@ trait HasRolesAndPermissions
     }
 
     /**
+     * NOT USED (no users_permissions pivot table)
      * @param  array  $permissions
      *
      * @return HasRolesAndPermissions
@@ -251,8 +246,8 @@ trait HasRolesAndPermissions
     public function refreshPermissions(array $permissions)
     {
         $this->permissions()->detach();
-
-        return $this->givePermissionsTo($permissions);
+        $this->permissions()->sync($permissions);
+        return $this;
     }
 
 

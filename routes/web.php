@@ -31,9 +31,13 @@ Auth::routes([
 /**
  * This is the SPA-route
  */
-Route::get('/admin', function () {
-    return view('pages.admin.admin');
-})->name('admin');
+Route::group(
+    ['middleware' => ['auth', '2fa', 'role:super-administrator|administrator'] ],
+    function () {
+        Route::get('/admin', function () {
+            return view('pages.admin.admin');
+        })->name('admin');
+    });
 
 
 /**
@@ -48,3 +52,11 @@ Route::get('/article/{article}', [ArticleController::class, 'show'])->name('arti
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 })->name('sentry');
+
+
+// 2FA endpoints
+Route::get('2fa', [App\Http\Controllers\UserCodeController::class, 'index'])->name('2fa.index');
+Route::post('2fa', [App\Http\Controllers\UserCodeController::class, 'store'])->name('2fa.post');
+Route::get('2fa/reset', [App\Http\Controllers\UserCodeController::class, 'resend'])
+    ->name('2fa.resend');
+// 2FA endpoints END

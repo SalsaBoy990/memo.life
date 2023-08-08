@@ -76,10 +76,10 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if (!$user->hasRoles('super-administrator') && $model->hasRoles('super-administrator')) {
+        if (!$user->hasRole('administrator') && $model->hasRole('administrator')) {
             return false;
         }
-        return $user->id === $model->id || $user->hasRoles('super-administrator|administrator');
+        return $user->id === $model->id || $user->hasRole('administrator');
     }
 
     /**
@@ -92,7 +92,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return false;
     }
 
     /**
@@ -105,6 +105,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        return false;
     }
 }

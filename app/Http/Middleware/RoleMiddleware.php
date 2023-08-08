@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class RoleMiddleware
-{
+class RoleMiddleware {
     /**
      * Handle an incoming request.
      *
@@ -15,17 +14,16 @@ class RoleMiddleware
      *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $roles, $permission = null)
-    {
+    public function handle( Request $request, Closure $next, $roles, $permission = null ) {
 
-        if (!auth()->user()->hasRoles($roles)) {
-            abort(403);
+        if ( ! auth()->user()->hasRoles( $roles ) ) {
+            abort( 403 );
         }
 
-        if ($permission !== null && !auth()->user()->can($permission)) {
-            abort(403);
+        if ( $permission !== null && ! auth()->user()->can( $permission ) ) {
+            abort( 403 );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 }

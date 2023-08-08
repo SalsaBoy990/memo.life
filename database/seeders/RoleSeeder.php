@@ -25,5 +25,10 @@ class RoleSeeder extends Seeder
         $admin2->slug = 'administrator';
         $admin2->save();
 
+        $customer = new Role();
+        $customer->name = 'Customer';
+        $customer->slug = 'customer';
+        $customer->save();
+
     }
 }

@@ -84,7 +84,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role)
     {
-        //
+        return false;
     }
 
     /**
@@ -97,6 +97,6 @@ class RolePolicy
      */
     public function forceDelete(User $user, Role $role)
     {
-        //
+        return false;
     }
 }
