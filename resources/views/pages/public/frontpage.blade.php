@@ -2,13 +2,16 @@
 
 @section('content')
     <div class="hero-container">
-        <div class="cart round white absolute middle padding-1" style="min-width: 320px">
-            <h1 class="margin-top-0-5">Memories of your Life</h1>
-            <p>Egy privát alkalmazás, mellyel az életed fontos mozzanatait megörökítő képeket, feljegyzéseket,
+        <div class="card round white absolute middle padding-1-5 s-600" style="min-width: 320px;">
+            <h1 class="margin-top-0">Memories of your Life</h1>
+            <p class="margin-bottom-1-5">Egy privát alkalmazás, mellyel az életed fontos mozzanatait megörökítő képeket, feljegyzéseket,
                 időpontokat és helyeket rendszerezheted. Hívd meg családtagjaidat és a legjobb barátaidat, és osszátok
                 meg a közös emlékeiteket!</p>
 
-            <button class="margin-bottom-0-5">Próbáld ki ingyen</button>
+            <div class="button-group">
+            <button class="margin-bottom-0-5 secondary">Próbáld ki ingyen</button>
+            <button class="margin-bottom-0-5 secondary alt">Kapcsolat</button>
+            </div>
         </div>
     </div>
 
@@ -40,20 +43,20 @@
                 <h2 class="fs-24 margin-top-0">A bakancslistád kezelése</h2>
                 <p>A bakancslistádat kezelheted a <strong>Memo.Life</strong>-on. Nyomon követheted, hogy a rajta szereplő tételek hány
                     százalékát teljesítetted eddig. A bakancslistádat csak te láthatod.</p>
-                <button class="margin-top-0">App kipróbálása</button>
+                <button class="secondary margin-top-0">App kipróbálása</button>
             </div>
             <div class="detail-item card white padding-1">
                 <h2 class="fs-24 margin-top-0">A bakancslistád kezelése</h2>
                 <p>A bakancslistádat kezelheted a <strong>Memo.Life</strong>-on. Nyomon követheted, hogy a rajta szereplő tételek hány
                     százalékát teljesítetted eddig. A bakancslistádat csak te láthatod.</p>
-                <button class="margin-top-0">App kipróbálása</button>
+                <button class="secondary margin-top-0">App kipróbálása</button>
             </div>
             <div class="detail-item empty"></div>
             <div class="detail-item card white padding-1">
                 <h2 class="fs-24 margin-top-0">A bakancslistád kezelése</h2>
                 <p>A bakancslistádat kezelheted a <strong>Memo.Life</strong>-on. Nyomon követheted, hogy a rajta szereplő tételek hány
                     százalékát teljesítetted eddig. A bakancslistádat csak te láthatod.</p>
-                <button class="margin-top-0">App kipróbálása</button>
+                <button class="secondary margin-top-0">App kipróbálása</button>
             </div>
 
 
