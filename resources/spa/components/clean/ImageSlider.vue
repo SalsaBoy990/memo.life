@@ -1,5 +1,5 @@
 <template>
-  <div class="clean-content relative">
+  <div class="content-960 margin-left-right-auto relative">
     <div class="relative slide-item">
       <img src="/images/img_nature_wide.jpg" alt="Beautiful Nature">
       <div class="topleft padding-1 text-white black-transparent fs-14">

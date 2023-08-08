@@ -7,9 +7,9 @@
           <font-awesome-icon :icon="['fas', 'times']" />
       </button>
 
-      <div class="clean-modal-content content-1024">
+      <div class="modal-content content-1024">
 
-        <div class="clean-content">
+        <div class="content-960 margin-left-right-auto">
           <img class="lightbox-item" src="/images/img_nature_wide.jpg"
                alt="Nature">
           <img class="lightbox-item" src="/images/img_snow_wide.jpg"
@@ -45,7 +45,7 @@
                    @click="() => currentLightbox(3)" alt="Mountains and fjords">
             </div>
           </div> <!-- End row -->
-        </div> <!-- End clean-content -->
+        </div> <!-- End content-960 -->
 
       </div> <!-- End modal content -->
     </div> <!-- End modal -->

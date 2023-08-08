@@ -16,11 +16,8 @@ html.dark,
         color: $gray-20
 
 
-    button.alt, .button.alt
-        background-color: white
-
     .accordion-button
-        border-color: $gray-20
+        border-color: $primary-light
 
 
     input, textarea
@@ -133,17 +130,17 @@ html.dark,
         color: white
 
 
-    .clean-modal
+    .modal
         background-color: rgba(255, 255, 255, 0.6)
 
 
-    .clean-modal-content
-        background-color: $gray-80
+    .modal-content
+        background-color: $gray-20
 
 
     .dropdown-content
         color: #fff
-        background-color: $black
+        background-color: $gray-80
 
 
     #main-menu-offcanvas-toggle
@@ -160,10 +157,33 @@ html.dark,
         background-color: $accent-dark
 
 
-    .clean-modal-content
+    .modal-content
         .box.white
-            background-color: $bg-content
+            background-color: $gray-20
 
-    .badge
-        color: white
-        background-color: $black
+
+    .tooltip
+        .tooltip-content
+            background-color: $gray-20
+            color: $black
+
+            &.tooltip-top
+                &:after
+                    border-top: 5px solid $gray-20
+                    bottom: -5px
+                    left: 50%
+                    margin-left: -5px
+
+            &.tooltip-right
+                &:after
+                    border-right: 5px solid $gray-20
+
+
+            &.tooltip-left
+                &:after
+                    border-left: 5px solid $gray-20
+
+
+            &.tooltip-bottom
+                &:after
+                    border-bottom: 5px solid $gray-20

@@ -8,8 +8,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="panel success white">
-    <h1 class="">{{ msg }}</h1>
+  <div class="box green-pale">
+    <h1 class="margin-top-0">{{ msg }}</h1>
     <h3>
       You’ve successfully created a project with
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
