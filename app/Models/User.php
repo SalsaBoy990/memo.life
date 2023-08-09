@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Mail\SendCodeMail;
 use App\Trait\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
@@ -76,4 +77,49 @@ class User extends Authenticatable
             exit;
         }
     }
+
+
+    /**
+     * User has many galleries
+     *
+     * @return HasMany
+     */
+    public function galleries(): HasMany
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+
+    /**
+     * User has many photos
+     *
+     * @return HasMany
+     */
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+
+    /**
+     * User has many tags
+     *
+     * @return HasMany
+     */
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
+
+
+    /**
+     * User has many photos
+     *
+     * @return HasMany
+     */
+    public function goals(): HasMany
+    {
+        return $this->hasMany(Goal::class);
+    }
+
 }

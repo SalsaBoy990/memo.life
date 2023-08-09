@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\Auth\PermissionSeeder;
+use Database\Seeders\Auth\RoleSeeder;
+use Database\Seeders\Auth\RolesPermissionsPivotSeeder;
+use Database\Seeders\Auth\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +24,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
+        $this->call(UserSeeder::class); // also seeds galleries, tags, goals
+        $this->call(RolesPermissionsPivotSeeder::class);
+        $this->call(ArticlesSeeder::class);
+
     }
 }

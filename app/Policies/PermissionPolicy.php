@@ -45,7 +45,7 @@ class PermissionPolicy
      */
     public function create(User $user): Response|bool
     {
-        return $user->hasRoles('super-administrator');
+        return $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -58,7 +58,7 @@ class PermissionPolicy
      */
     public function update(User $user, Permission $permission): Response|bool
     {
-        return $user->hasRoles('super-administrator');
+        return $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -71,7 +71,7 @@ class PermissionPolicy
      */
     public function delete(User $user, Permission $permission): Response|bool
     {
-        return $user->hasRoles('super-administrator');
+        return $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -82,9 +82,9 @@ class PermissionPolicy
      *
      * @return Response|bool
      */
-    public function restore(User $user, Permission $permission)
+    public function restore(User $user, Permission $permission): Response|bool
     {
-        //
+        return false;
     }
 
     /**
@@ -95,8 +95,8 @@ class PermissionPolicy
      *
      * @return Response|bool
      */
-    public function forceDelete(User $user, Permission $permission)
+    public function forceDelete(User $user, Permission $permission): Response|bool
     {
-        //
+        return false;
     }
 }

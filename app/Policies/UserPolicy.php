@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(User $user): Response|bool
     {
-        return $user->hasRoles('super-administrator|administrator');
+        return $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -35,7 +35,7 @@ class UserPolicy
         if (!$user->hasRoles('super-administrator') && $model->hasRoles('super-administrator')) {
             return false;
         }
-        return $user->id === $model->id || $user->hasRoles('super-administrator|administrator');
+        return $user->id === $model->id || $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -47,7 +47,7 @@ class UserPolicy
      */
     public function create(User $user): Response|bool
     {
-        return $user->hasRoles('super-administrator|administrator');
+        return $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
         if (!$user->hasRoles('super-administrator') && $model->hasRoles('super-administrator')) {
             return false;
         }
-        return $user->id === $model->id || $user->hasRoles('super-administrator|administrator');
+        return ($user->id === $model->id && $user->hasPermissionTo('manage-account')) || $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -76,10 +76,10 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if (!$user->hasRole('administrator') && $model->hasRole('administrator')) {
+        if (!$user->hasRoles('super-administrator') && $model->hasRoles('super-administrator')) {
             return false;
         }
-        return $user->id === $model->id || $user->hasRole('administrator');
+        return ($user->id === $model->id && $user->hasPermissionTo('manage-account')) || $user->hasPermissionTo('manage-users');
     }
 
     /**
@@ -90,7 +90,7 @@ class UserPolicy
      *
      * @return Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, User $model): Response|bool
     {
         return false;
     }
@@ -103,7 +103,7 @@ class UserPolicy
      *
      * @return Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, User $model): Response|bool
     {
         return false;
     }

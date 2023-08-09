@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Auth;
 
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -39,6 +38,26 @@ class PermissionSeeder extends Seeder
         $managePermissions->name = 'Manage Permissions';
         $managePermissions->slug = 'manage-permissions';
         $managePermissions->save();
+
+        $manageGalleries = new Permission();
+        $manageGalleries->name = 'Manage Galleries';
+        $manageGalleries->slug = 'manage-galleries';
+        $manageGalleries->save();
+
+        $manageGoals = new Permission();
+        $manageGoals->name = 'Manage Goals';
+        $manageGoals->slug = 'manage-goals';
+        $manageGoals->save();
+
+        $managePhotos = new Permission();
+        $managePhotos->name = 'Manage Photos';
+        $managePhotos->slug = 'manage-photos';
+        $managePhotos->save();
+
+        $manageTags = new Permission();
+        $manageTags->name = 'manage-tags';
+        $manageTags->slug = 'manage-tags';
+        $manageTags->save();
 
     }
 }
