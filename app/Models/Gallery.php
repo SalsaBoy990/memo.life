@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\HtmlSpecialCharsCast;
+use App\Interface\GalleryInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mews\Purifier\Casts\CleanHtml;
 
-class Gallery extends Model
+class Gallery extends Model implements GalleryInterface
 {
     use HasFactory;
 
