@@ -123,7 +123,7 @@ class Check2FaTest extends TestCase
         $this->assertTrue(Route::has('2fa.index'), '2FA verification route should exists');
         $this->assertTrue(class_exists('\App\Http\Controllers\Auth\UserCodeController'), 'UserCodeController should exists');
 
-        $response = $this->actingAs($this->user)->get('/admin');
+        $response = $this->actingAs($this->user)->get('/admin/dashboard');
 
         $response->assertHeader('content-type', 'text/html; charset=UTF-8');
         $response->assertStatus(302);
