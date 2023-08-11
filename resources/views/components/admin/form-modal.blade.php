@@ -4,23 +4,24 @@
 <div x-show="{{ $trigger }} == true"
      x-init="{ modalId: @js('#' . $id) }"
      x-on:keydown.escape.window="{{ $trigger }} = false"
-     class="clean-modal"
+     class="modal"
      :class="{'show': {{ $trigger }} == true}"
      x-cloak
 >
 
     <div
         id="{{ $id }}"
+        x-trap="{{ $trigger }} == true"
         {{ $attributes->merge(
-            ['class' => 'clean-modal-content content-600 card card-4 animate-top relative']) }}
+            ['class' => 'modal-content content-600 card card-4 animate-top relative']) }}
     >
 
         <!-- Modal header -->
         <div class="box primary round-top">
-                <span @click="{{ $trigger }} = false"
-                      class="close-button fs-18 primary topright round-top-right text-white">
+                <button @click="{{ $trigger }} = false"
+                      class="close-button fs-18 primary topright round-top-right text-white margin-top-0">
                     <i class="fa fa-times" aria-hidden="true"></i>
-                </span>
+                </button>
             <h3 class="text-white h4">{{ $title }}</h3>
         </div>
 

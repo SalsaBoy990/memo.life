@@ -14,6 +14,11 @@
                         <i class="fa fa-home" aria-hidden="true"></i>{{ __('Frontpage') }}
                     </a>
 
+                    <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
+                       href="{{ url('/admin/app') }}">
+                        {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
+                    </a>
+
                     <a class="{{ request()->routeIs('sentry') ? 'active' : '' }}"
                        href="{{ url('/debug-sentry') }}">
                         {{ __('Sentry') }}
@@ -46,7 +51,7 @@
                         <a href="javascript:void(0)"
                            id="main-menu-close-button"
                            @click="closeOffcanvasMenu()"
-                           class="close-btn fs-18 absolute topright padding-0-5"
+                           class="close-button fs-18 absolute topright padding-0-5"
                         >
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </a>
@@ -62,16 +67,15 @@
             <div class="right-menu">
                 @auth
                     <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
-                       href="{{ url('/admin') }}">
-                        {{ __('Admin page') }}
+                       href="{{ url('/admin/app') }}">
+                        {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
                     </a>
                 @else
-                    <a href="{{ route('login') }}"
-                       class="button primary margin-top-0">{{ __('Log in') }}</a>
-
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="button primary alt margin-top-0">{{ __('Register') }}</a>
+                        <a href="{{ route('register') }}" class="button register-button margin-top-0">{{ __('Register') }}</a>
                     @endif
+                    <a href="{{ route('login') }}"
+                       class="button login-button margin-top-0">{{ __('Log in') }}</a>
                 @endauth
             </div>
         @endif

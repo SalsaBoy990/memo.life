@@ -12,9 +12,9 @@
                href="{{ url('/') }}">
                 <i class="fa fa-home" aria-hidden="true"></i>{{ __('Frontpage') }}
             </a>
-            <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
-               href="{{ url('/admin') }}">
-                {{ __('Admin page') }}
+            <a class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"
+               href="{{ url('/admin/dashboard') }}">
+                {{ __('Dashboard') }}
             </a>
             <a class="{{ request()->routeIs('sentry') ? 'active' : '' }}"
                href="{{ url('/sentry') }}">

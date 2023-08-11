@@ -44,11 +44,11 @@
 
 
                 <div class="bar margin-top-1">
-                    <button type="submit" class="primary margin-top-1">
+                    <button type="submit" class="secondary margin-top-1">
                         {{ __('Login') }}
                     </button>
 
-                    <a class="button primary alt margin-top-1" href="{{ route('2fa.resend') }}">
+                    <a class="button secondary alt margin-top-1" href="{{ route('2fa.resend') }}">
                         {{ __('Resend Code?') }}</a>
 
                 </div>

@@ -28,7 +28,7 @@
                 @enderror
 
                 <div class="inline-block margin-top-1 margin-bottom-1">
-                    <input type="checkbox" name="remember" id="remember"
+                    <input type="checkbox" name="remember" id="remember" checked
                            class="margin-left-0" {{ old('remember') ? 'checked' : '' }}>
                     <label for="remember" style="display: inline">
                         {{ __('Remember Me') }}

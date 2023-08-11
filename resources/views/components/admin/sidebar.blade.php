@@ -1,6 +1,6 @@
 <aside>
     <header>
-        <h3 class="text-white fs-18">{{ __('Table of Content') }}</h3>
+        <h3 class="text-white fs-18">{{ auth()->user()->name }}</h3>
     </header>
     <div class="sidebar-content">
 
@@ -11,8 +11,8 @@
 
         <?php } ?><!-- Custom content goes here END -->
 
-        <div class="padding-1">
-            <ul class="navbar-nav margin-top-0 padding-left-0 no-bullets fs-14">
+        <div class="padding-top-1">
+            <ul class="navbar-nav margin-top-0 padding-left-right-0 no-bullets">
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
@@ -31,78 +31,6 @@
 
                     @role('super-administrator|administrator')
 
-                    <!-- Manage posts/articles link -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('post.manage') ? 'active' : '' }}"
-                           href="{{ route('post.manage') }}"
-                        >
-                            <i class="fa-regular fa-newspaper"></i>
-                            <span>{{ __('Manage posts') }}</span>
-                        </a>
-                    </li>
-
-
-                    <!-- Manage categories link -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('category.manage') ? 'active' : '' }}"
-                           href="{{ route('category.manage') }}"
-                        >
-                            <i class="fa-solid fa-folder-open"></i>
-                            <span>{{ __('Manage categories') }}</span>
-                        </a>
-                    </li>
-
-
-                    <!-- Manage tags link -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('tag.manage') ? 'active' : '' }}"
-                           href="{{ route('tag.manage') }}"
-                        >
-                            <i class="fa-solid fa-tags"></i>
-                            <span>{{ __('Manage tags') }}</span>
-                        </a>
-                    </li>
-
-
-                    <!-- Manage media link -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('media.manage') ? 'active' : '' }}"
-                           href="{{ route('media.manage') }}"
-                        >
-                            <i class="fa-solid fa-file-image"></i>
-                            <span>{{ __('Manage media') }}</span>
-                        </a>
-                    </li>
-
-                    <!-- Manage events-->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('event.manage') ? 'active' : '' }}"
-                           href="{{ route('event.manage') }}"
-                        >
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span>{{ __('Manage events') }}</span>
-                        </a>
-                    </li>
-
-                    <!-- Manage organizers -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('organizer.manage') ? 'active' : '' }}"
-                           href="{{ route('organizer.manage') }}"
-                        >
-                            <i class="fa-solid fa-users"></i>
-                            <span>{{ __('Manage organizers') }}</span>
-                        </a>
-                    </li>
-
-                    <!-- Manage locations-->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('location.manage') ? 'active' : '' }}"
-                           href="{{ route('location.manage') }}"
-                        >
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>{{ __('Manage locations') }}</span>
-                        </a>
-                    </li>
 
                     @endrole
 

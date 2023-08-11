@@ -2,55 +2,31 @@
     <div class="header-content">
         <div class="logo">
             <a href="/" class="brand">
-                <img src="{{ url('/images/kizombamagyarorszag.png') }}" alt="{{ config('app.name', 'Laravel') }}">
+                <img src="{{ url('/images/memolife.png') }}" alt="{{ config('app.name', 'Laravel') }}">
             </a>
         </div>
         @if (Route::has('login'))
             <div class="main-navigation">
                 <nav id="main-menu">
                     @auth
-                        <a class="fs-14 {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                        <a class="{{ request()->routeIs('frontpage') ? 'active' : '' }}"
+                           href="{{ url('/') }}">
+                            <i class="fa fa-home" aria-hidden="true"></i>{{ __('Frontpage') }}
+                        </a>
+
+                        <a class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"
                            href="{{ url('/admin/dashboard') }}">
                             <i class="fa fa-tachometer" aria-hidden="true"></i>{{ __('Dashboard') }}
                         </a>
 
                         @role('super-administrator|administrator')
 
-                        <!-- Manage posts/articles link -->
-                        <a class="fs-14 {{ request()->routeIs('post.manage') ? 'active' : '' }}"
-                           href="{{ route('post.manage') }}"
-                        >
-                            <i class="fa-regular fa-newspaper"></i>
-                            <span>{{ __('Posts') }}</span>
-                        </a>
-
-
-                        <!-- Manage categories link -->
-                        <a class="fs-14 {{ request()->routeIs('category.manage') ? 'active' : '' }}"
-                           href="{{ route('category.manage') }}"
-                        >
-                            <i class="fa-solid fa-folder-open"></i>
-                            <span>{{ __('Categories') }}</span>
-                        </a>
-
-
-                        <!-- Manage tags link -->
-                        <a class="fs-14 {{ request()->routeIs('tag.manage') ? 'active' : '' }}"
-                           href="{{ route('tag.manage') }}"
-                        >
-                            <i class="fa-solid fa-tags"></i>
-                            <span>{{ __('Tags') }}</span>
-                        </a>
-
-
-                        <!-- Manage events link -->
-                        <a class="fs-14 {{ request()->routeIs('event.manage') ? 'active' : '' }}"
-                           href="{{ route('event.manage') }}"
-                        >
-                            <i class="fa-solid fa-calendar-days"></i>
-                            <span>{{ __('Events') }}</span>
-                        </a>
                         @endrole
+
+                        <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
+                           href="{{ url('/admin/app') }}">
+                            {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
+                        </a>
 
 
                         <div
@@ -58,7 +34,7 @@
                             class="dropdown-click"
                             @click.outside="hideDropdown"
                         >
-                            <a class="fs-14" @click="toggleDropdown">
+                            <a @click="toggleDropdown">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span>{{ Auth::user()->name }}</span>
                                 <i class="fa fa-caret-down"></i>
@@ -66,7 +42,7 @@
 
                             <div x-show="openDropdown" class="dropdown-content card padding-0-5">
 
-                                <a class="fs-14 dropdown-item"
+                                <a class="dropdown-item"
                                    href="{{ route('user.account', auth()->id()) }}"
                                 >
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -75,7 +51,7 @@
 
 
                                 <a
-                                    class="fs-14 dropdown-item"
+                                    class="dropdown-item"
                                     href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();"
@@ -132,6 +108,42 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="right-menu">
+
+                @auth
+                    @php
+                        $light = __('Light mode');
+                        $dark = __('Dark mode');
+                    @endphp
+                    <button
+                        class="darkmode-toggle margin-top-0"
+                        rel="button"
+                        @click="toggleDarkMode"
+                        x-text="isDarkModeOn() ? '🔆' : '🌒'"
+                        :title="isDarkModeOn() ? '{{ $light }}' : '{{ $dark }}'"
+                    >
+                    </button>
+
+                    <div class="logout">
+                        <a class="button logout-button"
+                            href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <span>{{ __('Logout') }}</span>
+                        </a>
+
+                        <form
+                            id="logout-form"
+                            action="{{ route('logout') }}"
+                            method="POST"
+                            class="d-none"
+                        >
+                            @csrf
+                        </form>
+                    </div>
+
+                @endauth
             </div>
         @endif
     </div>
