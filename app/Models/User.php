@@ -16,6 +16,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRolesAndPermissions;
 
+    public const RECORDS_PER_PAGE = 10;
+
     /**
      * The attributes that are mass assignable.
      *
