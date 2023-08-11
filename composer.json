@@ -11,9 +11,11 @@
         "intervention/image": "dev-master",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
+        "livewire/livewire": "^2.12.3",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "mews/purifier": "^3.4.0",
+        "spatie/laravel-csp": "^2.8",
         "sentry/sentry-laravel": "^3.6"
     },
     "require-dev": {
