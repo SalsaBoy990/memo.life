@@ -2,7 +2,7 @@
 
 namespace App\Trait;
 
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Exception\NotWritableException;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -20,21 +20,24 @@ trait ImageManipulationTrait
      * @param  string  $photosFolder
      * @param  string  $galleryFolder
      *
-     * @return void
+     * @return bool
      */
-    public function createPhotoFoldersIfNotExist(string $userFolder, string $photosFolder, string $galleryFolder): void
+    public function createPhotoFoldersIfNotExist(string $userFolder, string $photosFolder, string $galleryFolder): bool
     {
+        $success = true;
         if (!is_dir(storage_path($userFolder))) {
-            mkdir(storage_path($userFolder), 0775, true);
+            $success = mkdir(storage_path($userFolder), 0775, true);
         }
 
         if (!is_dir(storage_path($photosFolder))) {
-            mkdir(storage_path($photosFolder), 0775, true);
+            $success = mkdir(storage_path($photosFolder), 0775, true);
         }
 
         if (!is_dir(storage_path($galleryFolder))) {
-            mkdir(storage_path($galleryFolder), 0775, true);
+            $success = mkdir(storage_path($galleryFolder), 0775, true);
         }
+
+        return $success;
     }
 
 
@@ -48,8 +51,8 @@ trait ImageManipulationTrait
      */
     public function isPhotoExists(int $userId, int $galleryId, string $image): bool
     {
-        $imageStoragePath = '/user/'.$userId.'/photos/'.$galleryId.'/'.$image;
-        return Storage::exists($imageStoragePath);
+        $imageStoragePath = 'storage/app/user/'.$userId.'/photos/'.$galleryId.'/'.$image;
+        return file_exists($imageStoragePath); // Storage::exists(...
     }
 
 
@@ -59,77 +62,89 @@ trait ImageManipulationTrait
      * @param  int  $userId
      * @param  int  $galleryId
      * @param  string  $image
-     * @return void
+     * @return bool
      */
-    public function deletePhoto(int $userId, int $galleryId, string $image): void
+    public function deletePhoto(int $userId, int $galleryId, string $image): bool
     {
-        $imageStoragePath = '/user/'.$userId.'/photos/'.$galleryId.'/'.$image;
-        if (Storage::exists($imageStoragePath)) {
-            Storage::delete($imageStoragePath);
+        $imageStoragePath = 'storage/app/user/'.$userId.'/photos/'.$galleryId.'/'.$image;
+        if (file_exists($imageStoragePath)) { // Storage::exists(...
+            return unlink($imageStoragePath); // Storage::delete(...
         }
+        return true;
     }
 
 
     /**
-     * Saves Photo, but processed with Intervention Image (resize & compress)
+     * Saves Photo, Cover Image, but processed with Intervention Image (resize & compress)
      *
      * @param  string  $inputImage
      * @param  string  $imagePath
      * @param  string  $thumbnailImagePath
      * @param  int  $imageQuality
      * @param  int  $thumbnailQuality
-     * @return void
+     * @return bool
      */
-    public function savePhoto(
+    public function saveImage(
         string $inputImage,
         string $imagePath,
         string $thumbnailImagePath,
         int $imageQuality = 90,
         int $thumbnailQuality = 75
-    ): void {
+    ): bool {
 
-        $image = Image::make($inputImage);
-        $imageWidth = $image->width();
-        $imageHeight = $image->height();
 
-        if ($imageWidth > $imageHeight || $imageHeight > $imageWidth) {
-            // Landscape & portrait will have a width with a maximum of 2500pxs
-            ($imageWidth > 2500) ?
-                $image->resize(2500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })
-                    ->save($imagePath, $imageQuality, 'jpg')
-                    ->resize(700, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($thumbnailImagePath, $thumbnailQuality, 'jpg')
-                :
-                $image->save($imagePath, $imageQuality, 'jpg')
-                    ->resize(700, null, function ($constraint) {
+        try {
+            $image = Image::make($inputImage);
+            $imageWidth = $image->width();
+            $imageHeight = $image->height();
+
+            if ($imageWidth > $imageHeight || $imageHeight > $imageWidth) {
+                // Landscape & portrait will have a width with a maximum of 2500pxs
+                ($imageWidth > 2500) ?
+                    $image->resize(2500, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })
-                    ->save($thumbnailImagePath, $thumbnailQuality, 'jpg');
-        } else {
-            // Square
-            ($imageWidth > 2500) ?
-                $image->resize(2500, 2500, function ($constraint) {
-                    $constraint->aspectRatio();
-                })
-                    ->save($imagePath, $imageQuality, 'jpg')
-                    ->resize(700, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($thumbnailImagePath, $thumbnailQuality, 'jpg')
-                :
-                $image->save($imagePath, $imageQuality, 'jpg')
-                    ->resize(700, null, function ($constraint) {
+                        ->save($imagePath, $imageQuality, 'jpg')
+                        ->resize(700, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->save($thumbnailImagePath, $thumbnailQuality, 'jpg')
+                    :
+                    $image->save($imagePath, $imageQuality, 'jpg')
+                        ->resize(700, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })
+                        ->save($thumbnailImagePath, $thumbnailQuality, 'jpg');
+
+                return true;
+
+            } else {
+                // Square
+                ($imageWidth > 2500) ?
+                    $image->resize(2500, 2500, function ($constraint) {
                         $constraint->aspectRatio();
                     })
-                    ->save($thumbnailImagePath, $thumbnailQuality, 'jpg');
+                        ->save($imagePath, $imageQuality, 'jpg')
+                        ->resize(700, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->save($thumbnailImagePath, $thumbnailQuality, 'jpg')
+                    :
+                    $image->save($imagePath, $imageQuality, 'jpg')
+                        ->resize(700, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })
+                        ->save($thumbnailImagePath, $thumbnailQuality, 'jpg');
+
+                return true;
+
+            }
+        } catch (NotWritableException|\Exception $ex) {
+            return false;
         }
     }
 
 
     /**
-     * @param  mixed  $image
+     * @param  object  $image
      * @param  int  $userId
      * @param  string  $galleryFolder
      *
@@ -147,8 +162,8 @@ trait ImageManipulationTrait
 
         return [
             'imagePath' => $imagePath,
-            'thumbnailImagePath' => $thumbnailImagePath,
             'imageFileName' => $imageFileName,
+            'thumbnailImagePath' => $thumbnailImagePath,
             'thumbnailImageFileName' => $thumbnailImageFileName,
         ];
     }
@@ -164,22 +179,25 @@ trait ImageManipulationTrait
      * @param  string  $coverImagesFolder
      * @param  string  $coverImagesYearMonthFolder
      *
-     * @return void
+     * @return bool
      */
     public function createCoverImageFoldersIfNotExist(
         string $userFolder,
         string $coverImagesFolder,
         string $coverImagesYearMonthFolder
-    ): void {
+    ): bool {
+        $success = true;
         if (!is_dir(storage_path($userFolder))) {
-            mkdir(storage_path($userFolder), 0775, true);
+            $success = mkdir(storage_path($userFolder), 0775, true);
         }
         if (!is_dir(storage_path($coverImagesFolder))) {
-            mkdir(storage_path($coverImagesFolder), 0775, true);
+            $success = mkdir(storage_path($coverImagesFolder), 0775, true);
         }
         if (!is_dir(storage_path($coverImagesYearMonthFolder))) {
-            mkdir(storage_path($coverImagesYearMonthFolder), 0775, true);
+            $success = mkdir(storage_path($coverImagesYearMonthFolder), 0775, true);
         }
+
+        return $success;
     }
 
 
@@ -187,13 +205,14 @@ trait ImageManipulationTrait
      * Cover image exists?
      *
      * @param  int  $userId
+     * @param  string  $yearMonthFolder
      * @param  string  $coverImage
      * @return bool
      */
-    public function isCoverImageExists(int $userId, string $coverImage): bool
+    private function isCoverImageExists(int $userId, string $yearMonthFolder, string $coverImage): bool
     {
-        $imageStoragePath = '/user/'.$userId.'/cover_images/'.$coverImage;
-        return Storage::exists($imageStoragePath);
+        $imageStoragePath = 'storage/app/user/'.$userId.'/cover_images/'.$yearMonthFolder.'/'.$coverImage;
+        return file_exists($imageStoragePath); // Storage::exists(...
     }
 
 
@@ -201,15 +220,17 @@ trait ImageManipulationTrait
      * Deletes the cover image
      *
      * @param  int  $userId
+     * @param  string  $yearMonthFolder
      * @param  string  $coverImage
-     * @return void
+     * @return bool
      */
-    public function deleteCoverImage(int $userId, string $coverImage): void
+    public function deleteCoverImage(int $userId, string $yearMonthFolder, string $coverImage): bool
     {
-        $imageStoragePath = '/user/'.$userId.'/cover_images/'.$coverImage;
-        if (Storage::exists($imageStoragePath)) {
-            Storage::delete($imageStoragePath);
+        $imageStoragePath = 'storage/app/user/'.$userId.'/cover_images/'.$yearMonthFolder.'/'.$coverImage;
+        if (file_exists($imageStoragePath)) { // Storage::exists(...
+            return unlink($imageStoragePath); // Storage::delete(...
         }
+        return true;
     }
 
 
@@ -223,7 +244,7 @@ trait ImageManipulationTrait
      */
     public function generateCoverImagePaths(
         bool $isValid,
-        $coverImage,
+        object $coverImage,
         int $userId,
         string $coverImagesYearMonthFolder
     ): array {
@@ -232,21 +253,20 @@ trait ImageManipulationTrait
             $thumbnailImageFileName = 'placeholder.jpg';
         } else {
             // with jpg extension (it will be converted to jpg in case of other extensions)
-            $imageFileName = pathinfo($coverImage->getClientOriginalName(),
-                    PATHINFO_FILENAME).'_'.$userId.'_'.time().'.jpg';
+            $imageFileName = $userId.'_'.time().'_'.pathinfo($coverImage->getClientOriginalName(),
+                    PATHINFO_FILENAME).'.jpg';
 
-            $thumbnailImageFileName = pathinfo($coverImage->getClientOriginalName(),
-                    PATHINFO_FILENAME).'_'.$userId.'_'.time().'_thumbnail.jpg';
+            $thumbnailImageFileName = $userId.'_'.time().'_'.pathinfo($coverImage->getClientOriginalName(),
+                    PATHINFO_FILENAME).'_thumbnail.jpg';
         }
 
         $imagePath = storage_path($coverImagesYearMonthFolder).'/'.$imageFileName;
         $thumbnailImagePath = storage_path($coverImagesYearMonthFolder).'/'.$thumbnailImageFileName;
-        //$imageFileName->move(storage_path('app/user/' . $request->user->id . '/coverimages/' . $currentDate), $coverImageName);
 
         return [
             'imagePath' => $imagePath,
-            'thumbnailImagePath' => $thumbnailImagePath,
             'imageFileName' => $imageFileName,
+            'thumbnailImagePath' => $thumbnailImagePath,
             'thumbnailImageFileName' => $thumbnailImageFileName,
         ];
     }
