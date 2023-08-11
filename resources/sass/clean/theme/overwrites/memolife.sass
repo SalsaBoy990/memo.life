@@ -26,18 +26,41 @@ header.page-header
     background-color: $primary-dark !important
     // needed
 
+    .register-button, .logout-button, .darkmode-toggle
+        background-color: transparent
+        border-color: $gray-20
+        color: $gray-20
+        display: inline-block
+        width: auto
+
+        &:hover
+            border-color: white
+            color: white
+
+    .login-button
+        background-color: $gray-20
+        border-color: $gray-20
+        color: $black !important
+        display: inline-block
+        width: auto
+
+        &:hover
+            background-color: white
+            border-color: white
+
     .header-content
         .logo
             position: relative
         //top: 8px
 
         #main-menu-offcanvas-toggle
-            color: white
-            border-color: white
+            color: $gray-20
+            border-color: $gray-20
 
             &:hover, &:focus
-                color: #333
-                border-color: #333
+                color: white
+                border-color: white
+                background-color: transparent
 
         #event-link-mobile-menu
             color: white

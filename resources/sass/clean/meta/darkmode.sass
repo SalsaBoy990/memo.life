@@ -19,11 +19,13 @@ html.dark,
     .accordion-button
         border-color: $primary-light
 
+    select
+        background: $gray-20
 
     input, textarea
         color: $black
-        background: $gray-0
-        border-color: $gray-80
+        background: $gray-20
+        border-color: $gray-10
 
         &:disabled
             cursor: not-allowed
@@ -149,20 +151,21 @@ html.dark,
         border: 2px solid white
 
         &:hover, &:focus
-            background-color: $primary-light
-            border: 2px solid white
+            color: white !important
+            border: 2px solid white !important
 
 
     a.nav-link.active
-        background-color: $accent-dark
+        background-color: $sidenav-active
 
 
     .modal-content
         .box.white
-            background-color: $gray-20
+            background-color: $bg-dark
 
 
     .alert
+        color: $text
         .alert-message
             color: $text
 
@@ -192,3 +195,39 @@ html.dark,
             &.tooltip-bottom
                 &:after
                     border-bottom: 5px solid $gray-20
+
+    .public
+        &.wrapper
+            border-top: 1px solid $bg-content
+
+    .sidenav
+        background-color: $sidenav-dark
+
+        #main-menu-close-button
+            color: white !important
+
+        #mobile-menu
+            #main-menu
+                a
+                    border-bottom: 1px solid $gray-20
+                    color: white !important
+                    &:hover
+                        background-color: $sidenav-hover
+
+                a.active
+                    color: white !important
+                    background-color: $sidenav-active
+                    border-left: 6px solid $bg-dark
+                    font-weight: 700
+
+    .admin .admin-content
+        aside div.sidebar-content .navbar-nav li a.nav-link:hover
+            background-color: $gray-60
+
+        .roles-permissions-bar
+            background-color: $gray-60
+
+
+    .dashboard-card-grid .card
+        background-color: $bg-content
+
