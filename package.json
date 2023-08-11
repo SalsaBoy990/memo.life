@@ -24,6 +24,8 @@
         "vue-router": "^4.2.1"
     },
     "dependencies": {
-        "alpinejs": "^3.12.3"
+        "@alpinejs/focus": "^3.12.3",
+        "alpinejs": "^3.12.3",
+        "lightgallery": "^2.5.0"
     }
 }
