@@ -28,6 +28,12 @@
                         Dashboard
                     </router-link>
 
+                    <!-- Account link -->
+                    <a class="nav-link" :href="'/admin/user/account/' + authStore.getUser().id">
+                        <font-awesome-icon :icon="['fas', 'user']"/>
+                        <span>My Account</span>
+                    </a>
+
                 </nav>
 
 
@@ -54,12 +60,12 @@
                     >
                         <a href="javascript:void(0)"
                            @click="closeOffcanvasMenu"
+                           id="main-menu-close-button"
                            class="close-btn fs-18 absolute topright padding-0-5">
                             <font-awesome-icon :icon="['fas', 'times']"/>
                         </a>
 
                         <div ref="mobileMenu" id="mobile-menu">
-
                             <!-- MOBILE MENU -->
                             <nav id="main-menu">
                                 <router-link class="nav-link" :to="{ name: 'Home' }">
@@ -76,6 +82,12 @@
                                     <font-awesome-icon :icon="['fas', 'dashboard']"/>
                                     Dashboard
                                 </router-link>
+
+                                <!-- Account link -->
+                                <a class="nav-link" :href="'/admin/user/account/' + userId">
+                                    <font-awesome-icon :icon="['fas', 'user']"/>
+                                    <span>My Account</span>
+                                </a>
 
                             </nav>
 
@@ -104,6 +116,10 @@
                         :title="isDarkModeOn() ? 'light' : 'dark'"
                 >🌒
                 </button>
+
+                <a href="/admin/dashboard" class="pointer button darkmode-toggle margin-top-0" title="Dashboard">
+                    <font-awesome-icon :icon="['fas', 'dashboard']"/>
+                </a>
 
                 <Logout v-if="authStore.isAuthenticated()" @onLogout="onLogout"/>
 
@@ -138,6 +154,7 @@ export default {
     data() {
         return {
             authStore,
+            userId: 0,
             sidenav: false,
             clickedOutside: false,
             darkMode: localStorage.getItem('darkMode') === 'true',
@@ -154,8 +171,13 @@ export default {
 
 
     mounted() {
+        this.userId = authStore.getUser().id;
         this.sidenav = false;
         this.clickedOutside = false;
+    },
+
+    updated() {
+        this.userId = authStore.getUser().id;
     },
 
 

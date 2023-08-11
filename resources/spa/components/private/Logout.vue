@@ -2,7 +2,7 @@
 
     <div class="logout">
         <form @submit.prevent="onLogout">
-            <button type="submit" class="logout-button secondary alt hover-accent hover-border-accent submit">
+            <button type="submit" class="logout-button">
                 <font-awesome-icon :icon="['fas', 'sign-in-alt']"/>
                 Logout
             </button>

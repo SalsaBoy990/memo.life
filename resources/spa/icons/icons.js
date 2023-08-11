@@ -30,13 +30,14 @@ import {
     faInfoCircle,
     faAngleRight
 } from '@fortawesome/free-solid-svg-icons';
+import {faCog} from "@fortawesome/free-solid-svg-icons/faCog";
 
 /* add icons to the library */
 library.add(
     faUserSecret, faSearch, faSignInAlt, faSignOutAlt, faHome, faUser, faBars, faTimes, faCaretDown,
     faCaretRight, faChevronUp, faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight,
     faPlus, faMinus, faTrash, faPencilAlt, faQuestionCircle, faDashboard, faPlus, faMinus, faExclamationTriangle,
-    faExclamationCircle, faCircleCheck, faInfoCircle, faAngleRight
+    faExclamationCircle, faCircleCheck, faInfoCircle, faAngleRight, faCog
 );
 
 export default library;
