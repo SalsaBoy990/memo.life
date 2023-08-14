@@ -22,7 +22,7 @@ class GalleryController extends Controller
     {
         // get user by the unique handle
         $realHandle = str_replace('@', '', $handle);
-        $user = User::where('handle', '=', $realHandle)->firstOrFail();
+        $user = User::with('user_detail')->where('handle', '=', $realHandle)->firstOrFail();
 
         // only public
         $galleries = Gallery::where('user_id', '=', $user->id)

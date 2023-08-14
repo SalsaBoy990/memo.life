@@ -7,6 +7,7 @@ use App\Mail\SendCodeMail;
 use App\Trait\HasRolesAndPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
@@ -134,6 +135,14 @@ class User extends Authenticatable
     public function goals(): HasMany
     {
         return $this->hasMany(Goal::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function user_detail(): HasOne
+    {
+        return $this->hasOne(UserDetail::class);
     }
 
 }

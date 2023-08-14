@@ -7,7 +7,14 @@
 @section('content')
 
     <div class="content-600 public-account">
-        <h1 class="margin-top-0 text-center">{{ $user->name }}</h1>
+
+        <div class="flex flex-row margin-bottom-1" style="align-items: center;">
+            <img src="{{ asset($user->user_detail->avatar) }}"
+                 alt="{{ $user->name }}" class="circle margin-right-1 profile">
+            <h1 class="margin-top-bottom-0">{{ $user->name }}</h1>
+        </div>
+
+        <p>{{  $user->user_detail->bio }}</p>
 
         @auth
             @if($user->id === Auth()->id())

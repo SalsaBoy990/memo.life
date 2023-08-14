@@ -8,6 +8,7 @@ use App\Models\Photo;
 use App\Models\Role;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\UserDetail;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -29,15 +30,19 @@ class UserSeeder extends Seeder
 
         $user1 = new User();
         $user1->name = 'Gulácsi András';
+        $user1->handle = 'guland.life';
         $user1->email = 'gulandras90@gmail.com';
         $user1->password = bcrypt('D3#^b&&q94k02z');
         $user1->enable_2fa = 1;
         $user1->handle = Str::slug($user1->name).'-'.bin2hex(random_bytes(5));
         $user1->role()->associate($superAdmin);
         $user1->save();
+        $user1->refresh();
 
         $this->generateGoals($user1);
         $this->generateUserGalleriesWithTags($user1);
+        $this->createUserDetail($user1);
+
 
         $user2 = new User();
         $user2->name = 'John Doe';
@@ -54,9 +59,11 @@ class UserSeeder extends Seeder
         $user3->handle = Str::slug($user3->name).'-'.bin2hex(random_bytes(5));
         $user3->save();
         $user3->role()->associate($customer);
+        $user3->refresh();
 
         $this->generateGoals($user3);
         $this->generateUserGalleriesWithTags($user3);
+        $this->createUserDetail($user3);
 
 
     }
@@ -146,5 +153,16 @@ class UserSeeder extends Seeder
                 ]
             );
         }
+    }
+
+    /**
+     * @param  User  $user1
+     * @return void
+     */
+    private function createUserDetail(User $user1): void {
+        UserDetail::factory()->create([
+            'user_id' => $user1->id
+        ]);
+
     }
 }
