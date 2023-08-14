@@ -1,5 +1,6 @@
 import axios from "axios";
 import {REST_URL} from "../constants/constants.js";
+import {authStore} from "../store/authStore.js";
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
@@ -16,10 +17,13 @@ axios.interceptors.response.use(
         return response;
     },
     function (error) {
+        console.log(error.response)
         switch (error.response.status) {
-            case 401: // Not logged in
+            case 401: // Not logged in, also when 2FA session expires
             case 419: // Session expired
             case 503: // Down for maintenance
+                // reset state
+                authStore.reset();
                 // Bounce the user to the login screen with a redirect back
                 window.location.reload();
                 break;
