@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'enable_2fa',
+        'handle'
     ];
 
     /**
@@ -89,6 +90,17 @@ class User extends Authenticatable
     public function galleries(): HasMany
     {
         return $this->hasMany(Gallery::class);
+    }
+
+
+    public function getPaginatedGalleriesAttribute()
+    {
+        return $this->galleries()->paginate(10);
+    }
+
+    public function getUserHandleAttribute(): string
+    {
+        return '@'.$this->handle;
     }
 
 

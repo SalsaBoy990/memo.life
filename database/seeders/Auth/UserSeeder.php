@@ -8,8 +8,10 @@ use App\Models\Photo;
 use App\Models\Role;
 use App\Models\Tag;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -17,6 +19,7 @@ class UserSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws Exception
      */
     public function run()
     {
@@ -29,6 +32,7 @@ class UserSeeder extends Seeder
         $user1->email = 'gulandras90@gmail.com';
         $user1->password = bcrypt('D3#^b&&q94k02z');
         $user1->enable_2fa = 1;
+        $user1->handle = Str::slug($user1->name).'-'.bin2hex(random_bytes(5));
         $user1->role()->associate($superAdmin);
         $user1->save();
 
@@ -39,6 +43,7 @@ class UserSeeder extends Seeder
         $user2->name = 'John Doe';
         $user2->email = 'john@doe.com';
         $user2->password = bcrypt('password');
+        $user2->handle = Str::slug($user2->name).'-'.bin2hex(random_bytes(5));
         $user2->save();
         $user2->role()->associate($admin);
 
@@ -46,6 +51,7 @@ class UserSeeder extends Seeder
         $user3->name = 'Finn Gabika';
         $user3->email = 'finn@gabika.com';
         $user3->password = bcrypt('password');
+        $user3->handle = Str::slug($user3->name).'-'.bin2hex(random_bytes(5));
         $user3->save();
         $user3->role()->associate($customer);
 
