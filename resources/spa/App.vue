@@ -2,9 +2,35 @@
     <div class="spa-container relative" :class="{ dark: this.darkModeOn === true}">
         <Header @darkmodechanged="onDarkModeChange"/>
 
-        <component :is="layout">
-            <router-view :layout.sync="layout"/>
-        </component>
+            <div class="content-960 card white margin-left-right-auto margin-top-1-5">
+                <div class="bar primary round-top">
+                    <router-link class="bar-item button" active-class="red" :to="{ name: 'Home' }">
+                        <font-awesome-icon :icon="['fas', 'home']"/>
+                        Home
+                    </router-link>
+
+                    <router-link class="bar-item button" active-class="red" :to="{ name: 'Hello' }">
+                        <font-awesome-icon :icon="['fas', 'user']"/>
+                        Hello
+                    </router-link>
+
+                    <router-link class="bar-item button" active-class="red" :to="{ name: 'Dashboard' }">
+                        <font-awesome-icon :icon="['fas', 'dashboard']"/>
+                        Dashboard
+                    </router-link>
+
+                </div>
+
+                <div class="box animate-opacity">
+
+                    <component :is="layout">
+                        <router-view :layout.sync="layout"/>
+                    </component>
+
+                </div>
+
+            </div>
+
 
         <span v-if="showScrollToTopButton() === true"
               class="light-gray pointer scroll-to-top-button padding-0-5 round"

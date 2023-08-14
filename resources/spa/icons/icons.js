@@ -28,7 +28,7 @@ import {
     faExclamationTriangle,
     faExclamationCircle,
     faInfoCircle,
-    faAngleRight
+    faAngleRight, faImages
 } from '@fortawesome/free-solid-svg-icons';
 import {faCog} from "@fortawesome/free-solid-svg-icons/faCog";
 
@@ -37,7 +37,7 @@ library.add(
     faUserSecret, faSearch, faSignInAlt, faSignOutAlt, faHome, faUser, faBars, faTimes, faCaretDown,
     faCaretRight, faChevronUp, faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight,
     faPlus, faMinus, faTrash, faPencilAlt, faQuestionCircle, faDashboard, faPlus, faMinus, faExclamationTriangle,
-    faExclamationCircle, faCircleCheck, faInfoCircle, faAngleRight, faCog
+    faExclamationCircle, faCircleCheck, faInfoCircle, faAngleRight, faCog, faImages
 );
 
 export default library;

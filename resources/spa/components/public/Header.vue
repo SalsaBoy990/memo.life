@@ -13,25 +13,20 @@
 
                 <!-- DESKTOP MENU -->
                 <nav ref="mainMenu" id="main-menu">
-                    <router-link class="nav-link" :to="{ name: 'Home' }">
-                        <font-awesome-icon :icon="['fas', 'home']"/>
-                        Home
-                    </router-link>
 
-                    <router-link class="nav-link" :to="{ name: 'Hello' }">
-                        <font-awesome-icon :icon="['fas', 'user']"/>
-                        Hello
-                    </router-link>
+                    <!-- Public profile link -->
+                    <a :href="'/profile/@' + authStore.getUser().handle">
+                        <font-awesome-icon :icon="['fas', 'user']"/>Public Profile
+                    </a>
 
-                    <router-link class="nav-link" :to="{ name: 'Dashboard' }">
-                        <font-awesome-icon :icon="['fas', 'dashboard']"/>
-                        Dashboard
-                    </router-link>
+                    <a href="/admin/app" class="text-accent bold">
+                        <font-awesome-icon :icon="['fas', 'images']"/>Your memories
+                    </a>
 
                     <!-- Account link -->
                     <a class="nav-link" :href="'/admin/user/account/' + authStore.getUser().id">
-                        <font-awesome-icon :icon="['fas', 'user']"/>
-                        <span>My Account</span>
+                        <font-awesome-icon :icon="['fas', 'cog']"/>
+                        <span>Your Account</span>
                     </a>
 
                 </nav>
@@ -68,20 +63,10 @@
                         <div ref="mobileMenu" id="mobile-menu">
                             <!-- MOBILE MENU -->
                             <nav id="main-menu">
-                                <router-link class="nav-link" :to="{ name: 'Home' }">
-                                    <font-awesome-icon :icon="['fas', 'home']"/>
-                                    Home
-                                </router-link>
-
-                                <router-link class="nav-link" :to="{ name: 'Hello' }">
-                                    <font-awesome-icon :icon="['fas', 'user']"/>
-                                    Hello
-                                </router-link>
-
-                                <router-link class="nav-link" :to="{ name: 'Dashboard' }">
-                                    <font-awesome-icon :icon="['fas', 'dashboard']"/>
-                                    Dashboard
-                                </router-link>
+                                <!-- Public profile link -->
+                                <a :href="'/profile/' + authStore.getUser().id">
+                                    <i class="fa-regular fa-images"></i>Public Profile
+                                </a>
 
                                 <!-- Account link -->
                                 <a class="nav-link" :href="'/admin/user/account/' + userId">

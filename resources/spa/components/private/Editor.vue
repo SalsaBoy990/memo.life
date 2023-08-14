@@ -5,7 +5,7 @@
         <h3 v-else>Add New Article</h3>
 
 
-        <Alert v-if="articleStore.message !== ''" :showCloseButton="false" :color="articleStore.color">
+        <Alert v-if="articleStore.message !== ''" :heading="articleStore.color" :showCloseButton="false" :color="articleStore.color">
             {{ articleStore.message }}
         </Alert>
 

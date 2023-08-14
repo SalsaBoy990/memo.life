@@ -35,12 +35,12 @@ export const articleStore = reactive({
     // Get latest 10 posts from the WP REST API
     getArticles() {
         axios.get('article', {}).then((res) => {
-            this.articles = res.data.result.data
+            if (200 === res.status || 204 === res.status) {
+                this.articles = res.data.result.data
+            }
+            console.log(res.status)
         }).catch(err => {
             this.getErrors(err)
-            if (err.response.status === 401) {
-
-            }
         });
     },
 
@@ -48,8 +48,10 @@ export const articleStore = reactive({
     // Get one post by id
     showArticle(id) {
         axios.get('article/' + id).then(res => {
-            console.log(res)
-            this.article = res.data.result;
+            if (200 === res.status || 204 === res.status) {
+                console.log(res)
+                this.article = res.data.result;
+            }
         }).catch(err => {
             this.getErrors(err)
         });
