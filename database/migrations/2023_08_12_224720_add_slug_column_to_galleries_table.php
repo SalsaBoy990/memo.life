@@ -24,8 +24,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('galleries', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropUnique(['user_id', 'slug']);
             $table->dropColumn('slug');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 };
