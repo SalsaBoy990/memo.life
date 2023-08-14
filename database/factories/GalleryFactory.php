@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use DateInterval;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Gallery>
@@ -23,9 +24,12 @@ class GalleryFactory extends Factory
         $end->add(DateInterval::createFromDateString($dayOffset.' days'));
 
         $statuses = [ 'public', 'private'];
+        $title = $this->faker->sentence();
+
 
         return [
-            'title' => $this->faker->sentence(),
+            'title' => $title,
+            'slug' => Str::slug($title),
             'status' => $this->faker->randomElement($statuses),
             'story' => $this->faker->realText(),
             'cover_image' => '/images/placeholder.png',

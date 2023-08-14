@@ -19,6 +19,7 @@ class Gallery extends Model implements GalleryInterface
         'user_id',
         'status',
         'title',
+        'slug',
         'story',
         'cover_image',
         'thumbnail_image',
@@ -52,7 +53,7 @@ class Gallery extends Model implements GalleryInterface
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'galleries_tags');
     }
 
     /**

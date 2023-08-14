@@ -20,6 +20,7 @@ class Tag extends Model implements TagInterface
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'user_id'
     ];
@@ -48,20 +49,7 @@ class Tag extends Model implements TagInterface
      */
     public function galleries(): BelongsToMany
     {
-        return $this->belongsToMany(Gallery::class);
-    }
-
-
-    /**
-     * Galleries belong to a specific tag
-     *
-     * @return BelongsToMany
-     */
-    public function fiteredGalleries(): BelongsToMany
-    {
-        return $this->belongsToMany(Gallery::class)
-            ->wherePivot('tag_id', $this->id)
-            ->orderBy('updated_at', 'DESC');
+        return $this->belongsToMany(Gallery::class, 'galleries_tags');
     }
 
 
@@ -72,7 +60,7 @@ class Tag extends Model implements TagInterface
      */
     public function filteredGalleries(): BelongsToMany
     {
-        return $this->belongsToMany(Gallery::class)
+        return $this->belongsToMany(Gallery::class, 'galleries_tags')
             ->wherePivot('tag_id', $this->id)
             ->orderBy('updated_at', 'DESC');
     }
