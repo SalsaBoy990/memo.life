@@ -33,7 +33,6 @@
                        class="@error('code') border border-red @enderror"
                        name="code"
                        value="{{ old('code') }}"
-                       required
                        autocomplete="code"
                        autofocus
                 >
