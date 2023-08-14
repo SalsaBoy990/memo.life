@@ -14,6 +14,13 @@ header
         width: auto
         display: inline-block
 
+    .logout
+        display: inline-block
+
+        .logout-button
+            margin-top: 0
+
+
 #main-menu-offcanvas-toggle
     margin: 0
     padding: 0.5em
@@ -25,14 +32,17 @@ header
     @media screen and (min-width: 1115px)
         display: none
 
+
 #main-menu
     a
         i
             font-size: 16px
+            margin-right: 4px
 
     a.active
         color: $black
         font-weight: 700
+
 
 html.dark
     #main-menu
@@ -78,7 +88,7 @@ html.dark
             row-gap: 0
             flex-direction: column
             align-items: flex-start
-            font-size: 18px
+            //font-size: 16px
 
             a
                 margin: 0
@@ -100,29 +110,33 @@ html.dark
 
                 i
                     margin-right: 4px
+                    width: 24px
+                    text-align: center
 
             .user-dropdown-menu
+                display: inline-block
+                text-align: left
                 margin-top: 0
+
+                .dropdown-content
+                    .dropdown-item
+                        color: $primary-dark
 
             .dropdown-click
                 width: 100%
                 padding-top: 0
+                margin-left: 0
 
 
             .dropdown-content
+                text-align: left
                 display: flex
                 flex-direction: column
                 padding-left: 1.5em
                 padding-top: 0
+                padding-right: 0
                 border: none
                 position: initial
                 width: 300px
                 box-shadow: none
                 background-color: transparent
-
-
-.logout
-    display: inline-block
-
-    .logout-button
-        margin-top: 0

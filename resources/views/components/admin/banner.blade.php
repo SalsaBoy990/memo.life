@@ -29,7 +29,7 @@
         <div>
             <button
                 type="button"
-                class=""
+                class="alt"
                 :class="{ 'success': style === 'success', 'danger': style === 'danger' }"
                 aria-label="{{  __('Dismiss system notification') }}"
                 x-on:click="show = false"

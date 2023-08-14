@@ -16,6 +16,13 @@ header.page-header
         align-items: center
         gap: 0.5em
 
+        .user-dropdown-menu
+            .dropdown-content
+                .dropdown-item
+                    color: $primary-dark
+                    &:hover
+                        color: $black
+
         .dropdown-item
             display: block
             margin-bottom: 0.5em
@@ -42,13 +49,17 @@ header.page-header
         @media screen and (max-width: 1115px)
             display: none
 
+        .mobile-menu-only
+            @media screen and (min-width: 1115px)
+                display: none
+
 #hamburger-menu-button
     @media screen and (min-width: 1115px)
         display: none
 
 
 header .fa
-    margin: 0 4px
+    //margin: 0 4px
 
 .logo a
     display: flex

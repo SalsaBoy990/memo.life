@@ -19,10 +19,10 @@
         <!-- Modal header -->
         <div class="box primary round-top">
                 <button @click="{{ $trigger }} = false"
-                      class="close-button fs-18 primary topright round-top-right text-white margin-top-0">
+                      class="close-button fs-18 topright round-top-right text-white margin-top-0">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </button>
-            <h3 class="text-white h4">{{ $title }}</h3>
+            <h3 class="text-white h4 margin-right-1-5">{{ $title }}</h3>
         </div>
 
         <!-- Modal body -->
