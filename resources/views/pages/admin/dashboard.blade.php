@@ -13,8 +13,9 @@
                         @role('super-administrator|administrator|customer')
                         <!-- Custom links -->
                         <li class="card text-center">
-                            <a class="card-link" href="{{ url('/admin/app') }}">
-                                {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
+                            <a class="card-link" href="{{ route('spa') }}">
+                                <i class="fa-solid fa-images"></i>
+                                <span class="bold">{{ __('Your memories') }}</span>
                             </a>
                         </li>
                         @endrole

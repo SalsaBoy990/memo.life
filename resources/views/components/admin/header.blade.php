@@ -9,29 +9,24 @@
             <div class="main-navigation">
                 <nav id="main-menu">
                     @auth
-                        <a class="{{ request()->routeIs('frontpage') ? 'active' : '' }}"
-                           href="{{ url('/') }}">
-                            <i class="fa fa-home" aria-hidden="true"></i>{{ __('Frontpage') }}
+                        <a class="{{ request()->routeIs('public.profile') ? 'active' : '' }}"
+                           href="{{ route('public.profile', '@'.Auth::user()->handle) }}">
+                            <i class="fa fa-user" aria-hidden="true"></i>{{ __('Public profile') }}
                         </a>
 
-                        <a class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                           href="{{ url('/admin/dashboard') }}">
-                            <i class="fa fa-tachometer" aria-hidden="true"></i>{{ __('Dashboard') }}
+                        <a class="{{ request()->routeIs('spa') ? 'active' : '' }}"
+                           href="{{ route('spa') }}">
+                            <i class="fa-solid fa-images"></i>{{ __('Your memories') }}
                         </a>
 
-                        @role('super-administrator|administrator')
-
-                        @endrole
-
-                        <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
-                           href="{{ url('/admin/app') }}">
-                            {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
+                        <a class="{{ request()->routeIs('user.account') ? 'active' : '' }}"
+                           href="{{ route('user.account', auth()->id()) }}">
+                            <i class="fa-regular fa-cog"></i>{{ __('Your account') }}
                         </a>
-
 
                         <div
                             x-data="dropdownData"
-                            class="dropdown-click"
+                            class="dropdown-click mobile-menu-only"
                             @click.outside="hideDropdown"
                         >
                             <a @click="toggleDropdown">
@@ -41,6 +36,13 @@
                             </a>
 
                             <div x-show="openDropdown" class="dropdown-content card padding-0-5">
+
+                                <a class="dropdown-item"
+                                   href="{{ route('dashboard') }}"
+                                >
+                                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                    <span>{{ __('Dashboard') }}</span>
+                                </a>
 
                                 <a class="dropdown-item"
                                    href="{{ route('user.account', auth()->id()) }}"

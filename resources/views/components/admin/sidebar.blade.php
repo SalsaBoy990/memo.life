@@ -29,10 +29,25 @@
                 @else
                     <!-- Custom links -->
 
-                    @role('super-administrator|administrator')
+                    <!-- Public profile link -->
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('public.profile') ? 'active' : '' }}"
+                           href="{{ route('public.profile', '@'.auth()->user()->handle) }}"
+                        >
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span>{{ __('Public Profile') }}</span>
+                        </a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('spa') ? 'active' : '' }}"
+                           href="{{ route('spa') }}"
+                        >
+                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                            <span>{{ __('Your Memories') }}</span>
+                        </a>
+                    </li>
 
-                    @endrole
 
                     @role('super-administrator')
                     <!-- Manage users link -->

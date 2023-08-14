@@ -38,7 +38,7 @@
 
 <div class="public wrapper">
 
-    <div class="public-content container relative" style="max-width: 1920px; padding: 0; margin-bottom: 0">
+    <div class="public-content container relative" style="max-width: 1920px; padding: 0; margin-bottom: 0; margin-top: 0;">
 
         @yield('content')
 

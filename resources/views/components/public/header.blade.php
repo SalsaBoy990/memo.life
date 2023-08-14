@@ -14,18 +14,37 @@
                         <i class="fa fa-home" aria-hidden="true"></i>{{ __('Frontpage') }}
                     </a>
 
-                    <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
-                       href="{{ url('/admin/app') }}">
-                        {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
-                    </a>
+                    @auth
+                        <a class="{{ request()->routeIs('public.profile') ? 'active' : '' }}"
+                           href="{{ route('public.profile', Auth::user()->userHandle) }}">
+                            <i class="fa-regular fa-images"></i>{{ __('Public Profile') }}
+                        </a>
 
-                    <a class="{{ request()->routeIs('sentry') ? 'active' : '' }}"
-                       href="{{ url('/debug-sentry') }}">
-                        {{ __('Sentry') }}
-                    </a>
-                    <x-global.user-drop-down-menu :className="'user-dropdown-menu-desktop'"/>
+                        <a class="{{ request()->routeIs('spa') ? 'active' : '' }}"
+                           href="{{ route('spa') }}">
+                            <i class="fa-solid fa-images"></i>{{ __('Your memories') }}
+                        </a>
+
+                        <a class="{{ request()->routeIs('user.account') ? 'active' : '' }}"
+                           href="{{ route('user.account', auth()->id()) }}">
+                            <i class="fa-regular fa-cog margin-right-0-5"></i>{{ __('Your account') }}
+                        </a>
+                    @endauth
+
+                    @guest
+                        <a class="mobile-menu-only{{ request()->routeIs('login') ? ' active' : '' }}"
+                           href="{{ route('login') }}">
+                            <i class="fa-regular fa-circle-user"></i>{{ __('Login') }}
+                        </a>
+
+                        <a class="mobile-menu-only{{ request()->routeIs('register') ? ' active' : '' }}"
+                           href="{{ route('register') }}">
+                            {{ __('Register') }}
+                        </a>
+                    @endguest
+
+                    <x-global.user-drop-down-menu :className="'mobile-menu-only'"/>
                 </nav>
-
 
 
                 <div x-data="offCanvasMenuData">
@@ -66,13 +85,12 @@
             </div>
             <div class="right-menu">
                 @auth
-                    <a class="{{ request()->routeIs('admin') ? 'active' : '' }}"
-                       href="{{ url('/admin/app') }}">
-                        {{ __('Open app') }}<i class="fa-solid fa-square-arrow-up-right margin-left-0-5"></i>
-                    </a>
+                    <x-global.user-drop-down-menu :className="'user-dropdown-menu-desktop'"/>
+
                 @else
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="button register-button margin-top-0">{{ __('Register') }}</a>
+                        <a href="{{ route('register') }}"
+                           class="button register-button margin-top-0">{{ __('Register') }}</a>
                     @endif
                     <a href="{{ route('login') }}"
                        class="button login-button margin-top-0">{{ __('Log in') }}</a>
