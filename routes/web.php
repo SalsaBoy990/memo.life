@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\UserCodeController;
 use App\Http\Controllers\Public\ArticleController;
+use App\Http\Controllers\Public\GalleryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,39 +29,67 @@ Route::get('/', function () {
 })->name('frontpage');
 
 
+/**
+ * Public routes go here
+ */
+Route::group([],
+    function () {
+
+//        Route::get('/profile/{user}', [GalleryController::class, 'index'])->name('public.profile');
+        Route::get('/profile/{handle}', [GalleryController::class, 'index'])->name('public.profile');
+        Route::get('/gallery/{handle}/{slug}', [GalleryController::class, 'show'])->name('public.gallery');
+        Route::get('/tag/{handle}/{slug}', [GalleryController::class, 'tag'])->name('public.tag');
+        Route::get('/article/{article}', [ArticleController::class, 'show'])->name('article.public.show');
+
+    });
+
+
 Auth::routes([
     'logout' => false
 ]);
+
+
+Route::group(
+    ['middleware' => ['auth', 'verified', 'role:super-administrator|administrator|editor']],
+    function () {
+
+        /* 2FA endpoints */
+        Route::get('2fa', [UserCodeController::class, 'index'])->name('2fa.index');
+        Route::post('2fa', [UserCodeController::class, 'store'])->name('2fa.post');
+        /* 2FA endpoints END */
+        Route::get('2fa/reset', [UserCodeController::class, 'resend'])->name('2fa.resend');
+
+    }
+);
+
 
 /**
  * This is the SPA-route
  */
 Route::group(
-    ['middleware' => ['auth', '2fa', 'role:super-administrator|administrator']],
+    ['middleware' => ['auth', 'verified', '2fa', 'role:super-administrator|administrator']],
     function () {
+
         Route::get('/admin/app', function () {
             return view('pages.admin.admin');
-        })->name('admin');
-    });
+        })->name('spa');
 
-
-Route::group(
-    ['prefix' => 'admin'],
-    function () {
-        Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
     });
 
 
 Route::group(
     ['middleware' => ['auth', 'verified', '2fa', 'role:super-administrator|administrator|editor'], 'prefix' => 'admin'],
     function () {
+
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+
+        /* Users/Account */
         Route::get('user/account/{user}', [UserController::class, 'account'])->name('user.account');
         Route::put('user/update/{user}', [UserController::class, 'update'])->name('user.update');
-        Route::delete('user/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-        Route::delete('user/account/delete/{user}',
-            [UserController::class, 'deleteAccount'])->name('user.account.delete');
+        Route::delete('user/account/delete/{user}', [UserController::class, 'deleteAccount'])->name('user.account.delete');
+        Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+        /* Users/Account END */
 
     }
 );
@@ -68,19 +98,17 @@ Route::group(
 Route::group(
     ['middleware' => ['auth', 'verified', '2fa', 'role:super-administrator'], 'prefix' => 'admin'],
     function () {
+
         Route::get('user/manage', [UserController::class, 'index'])->name('user.manage');
+        Route::delete('user/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
         /* Roles and Permissions */
-        Route::get('role-permission/manage', [RolePermissionController::class, 'index'])
-            ->name('role-permission.manage');
+        Route::get('role-permission/manage', [RolePermissionController::class, 'index'])->name('role-permission.manage');
         /* Roles and Permissions END */
+
     }
 );
-
-
-/**
- * Public routes go here
- */
-Route::get('/article/{article}', [ArticleController::class, 'show'])->name('article.public.show');
 
 
 /**
@@ -89,11 +117,3 @@ Route::get('/article/{article}', [ArticleController::class, 'show'])->name('arti
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 })->name('sentry');
-
-
-// 2FA endpoints
-Route::get('2fa', [\App\Http\Controllers\Auth\UserCodeController::class, 'index'])->name('2fa.index');
-Route::post('2fa', [\App\Http\Controllers\Auth\UserCodeController::class, 'store'])->name('2fa.post');
-Route::get('2fa/reset', [\App\Http\Controllers\Auth\UserCodeController::class, 'resend'])
-    ->name('2fa.resend');
-// 2FA endpoints END
